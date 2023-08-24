@@ -1,5 +1,19 @@
 .App {
-  text-align: center;
+  display: flex;
+}
+
+.white-container{
+  background: #ffffff;
+  width: 50%;
+  height: 100vh;
+}
+
+.black-container{
+  background: #000000;
+  width: 50%;
+  height: 100vh;
+  border-top-left-radius: 40px;
+  border-bottom-left-radius: 40px;
 }
 
 .App-logo {

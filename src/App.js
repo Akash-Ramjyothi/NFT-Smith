@@ -1,23 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import React from "react";
+import { Image } from "antd";
+import { Space, Typography } from "antd";
+import { GithubOutlined } from "@ant-design/icons";
+
+const { Text, Link } = Typography;
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className="white-container"></div>
+      <div className="black-container">
+        <Image width={529} height={459} src="./Exportable Logo_4x.png" />
+
+        <Image width={20} height={20} src="./GitHubLogo.svg" />
+        <Link underline href="https://github.com/Akash-Ramjyothi/NFT-Smith" target="_blank">
+          Source Code
+        </Link>
+      </div>
     </div>
   );
 }
