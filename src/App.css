@@ -2,18 +2,45 @@
   display: flex;
 }
 
-.white-container{
+.white-container {
   background: #ffffff;
   width: 50%;
   height: 100vh;
 }
 
-.black-container{
+.black-container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
   background: #000000;
   width: 50%;
   height: 100vh;
+  min-height: 100vh;
   border-top-left-radius: 40px;
   border-bottom-left-radius: 40px;
+  position: relative;
+}
+
+.black-items-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.hyperlink-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  padding-bottom: 20px;
+}
+
+.paddingRight-10 {
+  padding-right: 10px;
 }
 
 .App-logo {
