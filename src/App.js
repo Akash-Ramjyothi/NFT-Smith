@@ -1,5 +1,5 @@
 import "./App.css";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Image } from "antd";
 import { Typography } from "antd";
 import { UserOutlined, MailOutlined, WalletOutlined } from "@ant-design/icons";
@@ -42,13 +42,18 @@ const SubmitButton = ({ form }) => {
 };
 
 function App() {
-  // Creatingg instance of Form
+  // Creating instance of Form
   const [form] = Form.useForm();
 
   // Callback function to be called when the form is successfully submitted
   const onFinish = (values) => {
     //console.log("Submitted details:", values);
-    console.log("Entered Name: ", values.name);
+    const inputName = values.name;
+    const inputEmailID = values.emailID;
+    const inputCryptoWalletAddress = values.cryptoWalletAddress;
+    console.log("Entered Name: ", inputName);
+    console.log("Entered E-Mail ID: ", inputEmailID);
+    console.log("Entered Crypto Wallet Address: ", inputCryptoWalletAddress);
   };
 
   // Rendering parent Div
@@ -66,7 +71,6 @@ function App() {
             onFinish={onFinish} // Set the onFinish callback
           >
             <Form.Item
-              name="name"
               label={
                 <span
                   style={{
@@ -85,19 +89,24 @@ function App() {
                   />
                 </span>
               }
-              rules={[
-                {
-                  required: false,
-                },
-              ]}
             >
-              <Input
-                placeholder="Please Enter Name"
-                style={{ fontSize: "18px", width: "400px" }}
-              />
+              <Form.Item
+                name="name"
+                noStyle
+                rules={[
+                  {
+                    required: true,
+                    message: "Name required to Mint NFT",
+                  },
+                ]}
+              >
+                <Input
+                  placeholder="Please Enter Name"
+                  style={{ fontSize: "18px", width: "400px" }}
+                />
+              </Form.Item>
             </Form.Item>
             <Form.Item
-              name="emailID"
               label={
                 <span
                   style={{
@@ -116,19 +125,24 @@ function App() {
                   />
                 </span>
               }
-              rules={[
-                {
-                  required: false,
-                },
-              ]}
             >
-              <Input
-                placeholder="Please Enter E-Mail ID"
-                style={{ fontSize: "18px", width: "400px" }}
-              />
+              <Form.Item
+                name="emailID"
+                noStyle
+                rules={[
+                  {
+                    required: true,
+                    message: "E-Mail ID required to Mint NFT",
+                  },
+                ]}
+              >
+                <Input
+                  placeholder="Please Enter E-Mail ID"
+                  style={{ fontSize: "18px", width: "400px" }}
+                />
+              </Form.Item>
             </Form.Item>
             <Form.Item
-              name="cryptoWalletAddress"
               label={
                 <span
                   style={{
@@ -147,16 +161,22 @@ function App() {
                   />
                 </span>
               }
-              rules={[
-                {
-                  required: false,
-                },
-              ]}
             >
-              <Input
-                placeholder="Please Enter Crypto Wallet Address"
-                style={{ fontSize: "18px", width: "400px" }}
-              />
+              <Form.Item
+                name="cryptoWalletAddress"
+                noStyle
+                rules={[
+                  {
+                    required: true,
+                    message: "Crypto Wallet Address required to Mint NFT",
+                  },
+                ]}
+              >
+                <Input
+                  placeholder="Please Enter Crypto Wallet Address"
+                  style={{ fontSize: "18px", width: "400px" }}
+                />
+              </Form.Item>
             </Form.Item>
             <Form.Item>
               <Space>
@@ -167,20 +187,23 @@ function App() {
         </div>
       </div>
       <div className="black-container">
-        <div className="black-items-wrapper">
-          <Image width={529} height={459} src="./Exportable Logo_4x.png" />
+        <div class="premint-container">
+          <div className="black-items-wrapper">
+            <Image width={529} height={459} src="./Exportable Logo_4x.png" />
+          </div>
+          <div className="hyperlink-wrapper">
+            <Image width={20} height={20} src="./GitHubLogo.svg" />
+            <div className="paddingRight-10" />
+            <Link
+              underline
+              href="https://github.com/Akash-Ramjyothi/NFT-Smith"
+              target="_blank"
+            >
+              Source Code
+            </Link>
+          </div>
         </div>
-        <div className="hyperlink-wrapper">
-          <Image width={20} height={20} src="./GitHubLogo.svg" />
-          <div className="paddingRight-10" />
-          <Link
-            underline
-            href="https://github.com/Akash-Ramjyothi/NFT-Smith"
-            target="_blank"
-          >
-            Source Code
-          </Link>
-        </div>
+        <div className="nft-container">This is a Text</div>
       </div>
     </div>
   );
