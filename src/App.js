@@ -45,6 +45,8 @@ function App() {
   // Creating instance of Form
   const [form] = Form.useForm();
 
+  const [nftCrafted, setNftCrafted] = useState(false); // State to track button click
+
   // Callback function to be called when the form is successfully submitted
   const onFinish = (values) => {
     //console.log("Submitted details:", values);
@@ -54,6 +56,8 @@ function App() {
     console.log("Entered Name: ", inputName);
     console.log("Entered E-Mail ID: ", inputEmailID);
     console.log("Entered Crypto Wallet Address: ", inputCryptoWalletAddress);
+
+    setNftCrafted(true); // Set the state to indicate button click
   };
 
   // Rendering parent Div
@@ -187,7 +191,7 @@ function App() {
         </div>
       </div>
       <div className="black-container">
-        <div class="premint-container">
+        {/* <div class="premint-container">
           <div className="black-items-wrapper">
             <Image width={529} height={459} src="./Exportable Logo_4x.png" />
           </div>
@@ -203,7 +207,38 @@ function App() {
             </Link>
           </div>
         </div>
-        <div className="nft-container">This is a Text</div>
+        <div className="nft-container">This is a Text</div> */}
+        <div className={nftCrafted ? "nft-container" : "premint-container"}>
+          {/* Conditional rendering based on the state */}
+          {nftCrafted ? (
+            <div className="nft-items-wrapper">
+              {/* Contents of the "nft-container" */}
+              {/* Replace this with your actual content */}
+              This is the NFT container content.
+            </div>
+          ) : (
+            <div className="premint-items-wrapper">
+              <div className="black-items-wrapper">
+                <Image
+                  width={529}
+                  height={459}
+                  src="./Exportable Logo_4x.png"
+                />
+              </div>
+              <div className="hyperlink-wrapper">
+                <Image width={20} height={20} src="./GitHubLogo.svg" />
+                <div className="paddingRight-10" />
+                <Link
+                  underline
+                  href="https://github.com/Akash-Ramjyothi/NFT-Smith"
+                  target="_blank"
+                >
+                  Source Code
+                </Link>
+              </div>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
