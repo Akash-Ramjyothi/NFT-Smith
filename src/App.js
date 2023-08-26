@@ -57,6 +57,7 @@ function App() {
     const hashStartIndex = ipfsValue.lastIndexOf("/") + 1;
     const ipfsHash = ipfsValue.substring(hashStartIndex);
     const prefix = "https://ipfs.io/ipfs/";
+    console.log("Format NFT function: ", `${prefix}${ipfsHash}`);
     return `${prefix}${ipfsHash}`;
   }
 
@@ -70,7 +71,7 @@ function App() {
       );
 
       const fetchedMetadata = {
-        image: formatIPFSImageHash(toString(response.data.image)),
+        image: formatIPFSImageHash(response.data.image),
       };
       console.log("Fetched data:", response.data.image);
       console.log(fetchedMetadata);
