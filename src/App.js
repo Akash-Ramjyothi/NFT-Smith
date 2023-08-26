@@ -5,6 +5,7 @@ import { Typography } from "antd";
 import { UserOutlined, MailOutlined, WalletOutlined } from "@ant-design/icons";
 import { Button, Form, Input, Space } from "antd";
 import Icon from "@ant-design/icons/lib/components/Icon";
+import axios from "axios";
 
 const { Text, Link } = Typography;
 
@@ -42,10 +43,41 @@ const SubmitButton = ({ form }) => {
 };
 
 function App() {
+  // To perform HTTP requests
+  //const axios = require("axios");
+
   // Creating instance of Form
   const [form] = Form.useForm();
 
-  const [nftCrafted, setNftCrafted] = useState(false); // State to track button click
+  // State to track button click
+  const [nftCrafted, setNftCrafted] = useState(false);
+
+  // Format IPFS Image response
+  async function formatIPFSImageHash(ipfsValue) {
+    const hashStartIndex = ipfsValue.lastIndexOf("/") + 1;
+    const ipfsHash = ipfsValue.substring(hashStartIndex);
+    const prefix = "https://ipfs.io/ipfs/";
+    return `${prefix}${ipfsHash}`;
+  }
+
+  // Fetch data from BAYC IPFS for NFT Metadata
+  async function fetchNftMetadataFromIPFS() {
+    try {
+      // Random number generator for IPFS hash suffix
+      const ipfsSuffix = Math.floor(Math.random() * 9999) + 1;
+      const response = await axios.get(
+        `https://ipfs.io/ipfs/QmeSjSinHpPnmXmspMjwiXyN6zS4E9zccariGR3jxcaWtq/${ipfsSuffix}`
+      );
+
+      const fetchedMetadata = {
+        image: formatIPFSImageHash(toString(response.data.image)),
+      };
+      console.log("Fetched data:", response.data.image);
+      console.log(fetchedMetadata);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  }
 
   // Callback function to be called when the form is successfully submitted
   const onFinish = (values) => {
@@ -57,6 +89,8 @@ function App() {
     console.log("Entered E-Mail ID: ", inputEmailID);
     console.log("Entered Crypto Wallet Address: ", inputCryptoWalletAddress);
 
+    fetchNftMetadataFromIPFS();
+
     setNftCrafted(true); // Set the state to indicate button click
   };
 
@@ -64,7 +98,7 @@ function App() {
   return (
     <div className="App">
       <div className="white-container">
-        <div class="form-wrapper">
+        <div className="form-wrapper">
           <Text className="form-title">Enter details to Mint your NFT !</Text>
           <Form
             form={form}
@@ -214,7 +248,9 @@ function App() {
             <div className="nft-items-wrapper">
               {/* Contents of the "nft-container" */}
               {/* Replace this with your actual content */}
-              This is the NFT container content.
+              <Text className="nft-title">
+                Your NFT is successfully Crafted
+              </Text>
             </div>
           ) : (
             <div className="premint-items-wrapper">
