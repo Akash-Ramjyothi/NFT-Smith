@@ -116,9 +116,11 @@ function App() {
       tokenID: await generateNFTtokenID(),
     };
 
-    console.log("NFT Metadata: ", nftMetadata);
+    //console.log("NFT Metadata: ", nftMetadata);
 
-    await uploadToIPFS(nftMetadata);
+    const nftMetadataURL = await uploadToIPFS(nftMetadata);
+
+    console.log("NFT Metadata URL: ", nftMetadataURL);
 
     setNftCrafted(true); // Set the state to indicate button click
   };
@@ -277,9 +279,7 @@ function App() {
             <div className="nft-items-wrapper">
               {/* Contents of the "nft-container" */}
               {/* Replace this with your actual content */}
-              <Text className="nft-title">
-                Your NFT is successfully Crafted
-              </Text>
+              <Text className="nft-title">Your NFT is successfully Minted</Text>
             </div>
           ) : (
             <div className="premint-items-wrapper">

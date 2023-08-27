@@ -82,7 +82,7 @@ export async function generateNFTtokenID() {
   const nftTokenID = decimalNumber.toString().padStart(4, "0");
 
   // Return NFT Token ID
-  return nftTokenID;
+  return Number(nftTokenID);
 }
 
 // Function to upload NFT Metadata object into IPFS with Pinata
@@ -102,7 +102,12 @@ export async function uploadToIPFS(objectToUpload) {
       }
     );
 
-    console.log("IPFS CID:", response.data.IpfsHash);
+    // Variable to store IPFS
+    const ipfsCID = response.data.IpfsHash;
+    const ipfsURL = `https://ipfs.io/ipfs/${ipfsCID}`;
+
+    // console.log("IPFS CID:", response.data.IpfsHash);
+    return ipfsURL; // Return the complete IPFS URL
   } catch (error) {
     console.error("Error uploading to IPFS:", error.message);
   }
