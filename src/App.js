@@ -4,8 +4,8 @@ import { Image } from "antd";
 import { Typography } from "antd";
 import { UserOutlined, MailOutlined, WalletOutlined } from "@ant-design/icons";
 import { Button, Form, Input, Space } from "antd";
-import Icon from "@ant-design/icons/lib/components/Icon";
 import axios from "axios";
+import { generateNFTName, generateNFTtokenID } from "./utils/utils.js";
 
 const { Text, Link } = Typography;
 
@@ -57,8 +57,9 @@ function App() {
     const hashStartIndex = ipfsValue.lastIndexOf("/") + 1;
     const ipfsHash = ipfsValue.substring(hashStartIndex);
     const prefix = "https://ipfs.io/ipfs/";
-    console.log("Format NFT function: ", `${prefix}${ipfsHash}`);
-    return `${prefix}${ipfsHash}`;
+    const formatedIPFSImageCID = `${prefix}${ipfsHash}`;
+    // console.log("Format NFT function: ", formatedIPFSImageCID);
+    return formatedIPFSImageCID;
   }
 
   // Fetch data from BAYC IPFS for NFT Metadata
@@ -70,18 +71,23 @@ function App() {
         `https://ipfs.io/ipfs/QmeSjSinHpPnmXmspMjwiXyN6zS4E9zccariGR3jxcaWtq/${ipfsSuffix}`
       );
 
+      // Retrieve Image and Attributed from BAYC IPFS
       const fetchedMetadata = {
-        image: formatIPFSImageHash(response.data.image),
+        image: await formatIPFSImageHash(response.data.image),
+        attributes: response.data.attributes,
       };
-      console.log("Fetched data:", response.data.image);
-      console.log(fetchedMetadata);
+      // console.log("Fetched data:", response.data.image);
+      // console.log("Metadata Object: ", fetchedMetadata);
+
+      // Return fetched BAYC Metadata
+      return fetchedMetadata;
     } catch (error) {
       console.error("Error fetching data:", error);
     }
   }
 
   // Callback function to be called when the form is successfully submitted
-  const onFinish = (values) => {
+  const onFinish = async (values) => {
     //console.log("Submitted details:", values);
     const inputName = values.name;
     const inputEmailID = values.emailID;
@@ -90,7 +96,21 @@ function App() {
     console.log("Entered E-Mail ID: ", inputEmailID);
     console.log("Entered Crypto Wallet Address: ", inputCryptoWalletAddress);
 
-    fetchNftMetadataFromIPFS();
+    let fetchedBAYCMetadata = await fetchNftMetadataFromIPFS();
+    // console.log("BAYC Metadata: ", fetchedBAYCMetadata);
+
+    // Create NFT Metadata object
+    let nftMetadata = {
+      image: fetchedBAYCMetadata.image,
+      name: await generateNFTName(),
+      external_url: "",
+      description:
+        "Discover 'Ethereal Dreams', an NFT masterpiece, '<%NFT_NAME%>' minted with NFT-Smith, fusing art and technology in a limited-edition digital gem.",
+      attributes: fetchedBAYCMetadata.attributes,
+      tokenID: await generateNFTtokenID(),
+    };
+
+    console.log("NFT Metadata: ", nftMetadata);
 
     setNftCrafted(true); // Set the state to indicate button click
   };
