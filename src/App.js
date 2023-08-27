@@ -5,7 +5,11 @@ import { Typography } from "antd";
 import { UserOutlined, MailOutlined, WalletOutlined } from "@ant-design/icons";
 import { Button, Form, Input, Space } from "antd";
 import axios from "axios";
-import { generateNFTName, generateNFTtokenID } from "./utils/utils.js";
+import {
+  generateNFTName,
+  generateNFTtokenID,
+  uploadToIPFS,
+} from "./utils/utils.js";
 
 const { Text, Link } = Typography;
 
@@ -99,18 +103,22 @@ function App() {
     let fetchedBAYCMetadata = await fetchNftMetadataFromIPFS();
     // console.log("BAYC Metadata: ", fetchedBAYCMetadata);
 
+    // generate NFT Name
+    const nftName = await generateNFTName();
+
     // Create NFT Metadata object
     let nftMetadata = {
       image: fetchedBAYCMetadata.image,
-      name: await generateNFTName(),
+      name: nftName,
       external_url: "",
-      description:
-        "Discover 'Ethereal Dreams', an NFT masterpiece, '<%NFT_NAME%>' minted with NFT-Smith, fusing art and technology in a limited-edition digital gem.",
+      description: `Discover 'Ethereal Dreams', an NFT masterpiece, '${nftName}' minted with NFT-Smith, fusing art and technology in a limited-edition digital gem.`,
       attributes: fetchedBAYCMetadata.attributes,
       tokenID: await generateNFTtokenID(),
     };
 
     console.log("NFT Metadata: ", nftMetadata);
+
+    await uploadToIPFS(nftMetadata);
 
     setNftCrafted(true); // Set the state to indicate button click
   };
