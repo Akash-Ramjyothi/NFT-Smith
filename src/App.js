@@ -110,7 +110,7 @@ function App() {
     let nftMetadata = {
       image: fetchedBAYCMetadata.image,
       name: nftName,
-      external_url: "",
+      external_url: "https://akash-ramjyothi.github.io/NFT-Smith/",
       description: `Discover 'Ethereal Dreams', an NFT masterpiece, '${nftName}' minted with NFT-Smith, fusing art and technology in a limited-edition digital gem.`,
       attributes: fetchedBAYCMetadata.attributes,
       tokenID: await generateNFTtokenID(),
@@ -118,7 +118,11 @@ function App() {
 
     //console.log("NFT Metadata: ", nftMetadata);
 
+    // Variable to store NFT Metadata URL
     const nftMetadataURL = await uploadToIPFS(nftMetadata);
+
+    // Timeout function to let Pinata upload the Object as JSON into IPFS
+    // setTimeout(() => {}, 5000);
 
     console.log("NFT Metadata URL: ", nftMetadataURL);
 
