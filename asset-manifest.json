@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/NFT-Smith/static/css/main.5962bb07.css",
+    "main.js": "/NFT-Smith/static/js/main.7b36cf5d.js",
+    "static/js/787.fedf60ea.chunk.js": "/NFT-Smith/static/js/787.fedf60ea.chunk.js",
+    "index.html": "/NFT-Smith/index.html",
+    "main.5962bb07.css.map": "/NFT-Smith/static/css/main.5962bb07.css.map",
+    "main.7b36cf5d.js.map": "/NFT-Smith/static/js/main.7b36cf5d.js.map",
+    "787.fedf60ea.chunk.js.map": "/NFT-Smith/static/js/787.fedf60ea.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.5962bb07.css",
+    "static/js/main.7b36cf5d.js"
+  ]
+}
